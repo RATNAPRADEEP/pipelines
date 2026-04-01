@@ -238,7 +238,7 @@ class RunDetails extends Page<RunDetailsInternalProps, RunDetailsState> {
   }
 
   public render(): JSX.Element {
-    if (this.props.isLoading) {
+    if (this.props.isLoading && !this.state.runMetadata) {
       return (
         <div style={{ textAlign: 'center', paddingTop: '40px' }}>
           <CircularProgress />
