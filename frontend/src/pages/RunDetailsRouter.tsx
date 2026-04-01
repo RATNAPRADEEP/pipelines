@@ -30,7 +30,7 @@ export default function RunDetailsRouter(props: RunDetailsProps) {
   let pipelineManifest: string | undefined;
 
   // Retrieves v2 run detail.
-  const { isSuccess: getV2RunSuccess, isFetching: runIsFetching, data: v2Run } = useQuery<
+  const { isSuccess: getV2RunSuccess, isLoading: runIsLoading, data: v2Run } = useQuery<
     V2beta1Run,
     Error
   >(['v2_run_detail', { id: runId }], () => Apis.runServiceApiV2.getRun(runId), {});
@@ -42,7 +42,7 @@ export default function RunDetailsRouter(props: RunDetailsProps) {
   const pipelineId = v2Run?.pipeline_version_reference?.pipeline_id;
   const pipelineVersionId = v2Run?.pipeline_version_reference?.pipeline_version_id;
 
-  const { isFetching: templateStrIsFetching, data: templateStrFromPipelineVersion } = useQuery<
+  const { isLoading: templateStrIsLoading, data: templateStrFromPipelineVersion } = useQuery<
     string,
     Error
   >(
@@ -70,5 +70,5 @@ export default function RunDetailsRouter(props: RunDetailsProps) {
     }
   }
 
-  return <EnhancedRunDetails {...props} isLoading={runIsFetching || templateStrIsFetching} />;
+  return <EnhancedRunDetails {...props} isLoading={runIsLoading || templateStrIsLoading} />;
 }
